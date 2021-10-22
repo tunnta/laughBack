@@ -1,7 +1,7 @@
 class GoodUsersController < ApplicationController
   def create
     GoodUser.new(good_params).save 
-    
+    #k
   end
 
   def destroy
