@@ -48,7 +48,7 @@ class TitlesController < ApplicationController
         @content = Content.where(switch:1).order("RANDOM()").limit(5)
         render json: @content.select("title","id","size")
 
-        elsif content_params[:sub]
+        elsif content_params[:sub] && content_params[:sub] != "emp"
           
           @answer = Answer.where(title_id:content_params[:id])
 
