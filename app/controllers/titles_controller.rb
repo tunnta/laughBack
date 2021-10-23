@@ -43,7 +43,11 @@ class TitlesController < ApplicationController
       def send_to_client
         #パラメーターをフロントから送った場合とそうじゃない場合
 
-        if content_params.empty? 
+        if content_params.empty? && Content.present?
+
+          render json: [title:"emp",size:200,id:0]
+
+        elsif content_params.empty?
 
         @content = Content.where(switch:1).order("RANDOM()").limit(5)
         render json: @content.select("title","id","size")

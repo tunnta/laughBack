@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Content.create(
+    title: 'kkkkkk',
+    size: 200,
+    sub: 'kk',
+    switch: 1,
+)
