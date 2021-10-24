@@ -25,7 +25,7 @@ class TitlesController < ApplicationController
 
       def user_title
 
-        if Content.where(sub:content_params[:sub]).where(switch:1).empty?
+        if Content.where(sub:content_params[:sub]).where(switch:1).present?
         render json: [0]
         else
         render json: [1]
