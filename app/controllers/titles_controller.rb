@@ -43,7 +43,7 @@ class TitlesController < ApplicationController
       def send_to_client
         #パラメーターをフロントから送った場合とそうじゃない場合
 
-        if content_params.empty? && Content.present?
+        if content_params.empty? && Content.empty?
 
           render json: [title:"emp",size:200,id:0]
 
