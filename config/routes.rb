@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/title', to: 'titles#send_to_client'
   get '/title/:id/:sub', to: 'titles#send_to_client'
   get '/title/:id', to: 'titles#send_to_client'
-  get '/title_all', to: 'titles#send_to_client_all'
+  get '/title_content0', to: 'titles#send_to_client0'
   post '/answer', to: 'titles#answer'
  
   resource :good_users
