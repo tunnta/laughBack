@@ -25,7 +25,7 @@ class TitlesController < ApplicationController
 
   def send_to_client0
     if content_params.empty? && Content.where(switch:0).blank?
-       render json: [title:"emp",size:200,id:4]
+       render json: [title:"emp",size:200,id:"emp"]
     else
       @content = Content.where(switch:0).limit(20)
       render json: @content
