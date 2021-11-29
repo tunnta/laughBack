@@ -39,7 +39,7 @@ class TitlesController < ApplicationController
 
     elsif content_params.empty?
       @content = Content.where(switch:1).order("RANDOM()")
-      render json: @content.select("title","id","size")
+      render json: @content
 
     elsif content_params[:id] == "emp"
       render json: [answer: "emp"]
