@@ -68,9 +68,10 @@ class TitlesController < ApplicationController
       @answer = @answer.map{|answer,index|
         cou = GoodUser.where(answer_id: answer[:id]).count
         {id: answer[:id],answer: answer[:answer],count: cou}
+        }
         @answer = @answer.sort {|a, b| b[:count] <=> a[:count] }
         render json: [Content.where(id: content_params[:id]).where(switch:0).select("title","id","size") ,@answer]
-      }
+      
     end
   end
 
