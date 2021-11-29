@@ -39,7 +39,7 @@ class TitlesController < ApplicationController
 
     elsif content_params.empty?
       @content = Content.where(switch:1).order("RANDOM()")
-      render json: @content
+      render json: @content.select("title","id","size")
 
     elsif content_params[:id] == "emp"
       render json: [answer: "emp"]
@@ -66,11 +66,11 @@ class TitlesController < ApplicationController
     elsif content_params[:switch] == "0"
       @answer = Answer.where(content_id:content_params[:id]).select("answer","id")
       @answer = @answer.map{|answer,index|
-      cou = GoodUser.where(answer_id: answer[:id]).count
-      {id: answer[:id],answer: answer[:answer],count: cou}
-      @answer = @answer.sort {|a, b| b[:count] <=> a[:count] }
+        cou = GoodUser.where(answer_id: answer[:id]).count
+        {id: answer[:id],answer: answer[:answer],count: cou}
+        @answer = @answer.sort {|a, b| b[:count] <=> a[:count] }
         render json: [Content.where(id: content_params[:id]).where(switch:0).select("title","id","size") ,@answer]
-          
+      }
     end
   end
 
