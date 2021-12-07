@@ -3,7 +3,8 @@ namespace :watch do
     
     task transfer_data: :environment do
     
-        
+        curl https://laugh.vercel.app
+
         contents = Content.where('created_at <= ?',3.day.ago).where(switch: 1)
 
         contents.each do |content|
