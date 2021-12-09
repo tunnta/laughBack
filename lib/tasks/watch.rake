@@ -2,8 +2,6 @@ namespace :watch do
     desc "dbのcontentを見て、createした時間から3日がたったものを削除とswitchをきりかえる"
     
     task transfer_data: :environment do
-    
-        curl https://laugh.vercel.app
 
         contents = Content.where('created_at <= ?',3.day.ago).where(switch: 1)
 
