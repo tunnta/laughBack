@@ -111,7 +111,7 @@ class TitlesController < ApplicationController
   elsif @user.size == 1
     @user = [{name:"reimu",count:0},{name:"youmu",count:1},@user[0]]
   elsif @user.size == 2
-    @user = [[name:"reimu",count:0],@user[0]]
+    @user = [[name:"reimu",count:0],@user[0],@user[1]]
   end
   @user = @user.sort {|a, b| b[:count] <=> a[:count] }
   return @user
