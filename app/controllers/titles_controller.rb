@@ -6,12 +6,17 @@ class TitlesController < ApplicationController
   end
 
   def create_good
-     #good_count = GoodUser.where(answer_id:good_params[:answer_id]).count
     GoodUser.new(good_params).save        
   end
 
   def answer
-    Answer.new(answer_params).save        
+    Answer.new(answer_params).save
+    if User.where(user_sub: user_params[:user_sub]).empty?
+      User.new(user_params).save
+    elsif User.where(user_sub: user_params[:user_sub]).where(name: user_params[:name]).empty?
+      User.find_by(user_sub: user_params[:user_sub]).delete
+      User.new(user_params).save
+    end        
   end
 
   def user_title
@@ -75,12 +80,53 @@ class TitlesController < ApplicationController
     end
   end
 
+  def rank
+    @rank = ranksort
+    render json: @rank
+  end
+
+  def ranksort
+    @answer = Answer.where('created_at >= ?',30.day.ago).select("name","user_sub","id")
+    @answer = @answer.map{|answer|
+      cou = GoodUser.where(answer_id: answer[:id]).count
+      {sub: answer[:user_sub],count: cou}
+    }
+    # [{name:"k",n:"k"},{name:"c",n:"x"}] ← mapの出力はこんな感じ
+    @user = User.all
+    @user = @user.map{|user|
+      if @answer.find_all{|val|val[:sub] == user[:user_sub]}.empty? != true
+        i = 0
+        cou = 0
+        k = @answer.find_all{|val|val[:sub] == user[:user_sub]}
+        size = k.size
+        while i < size do
+          cou = k[i][:count] + cou
+          i += 1
+        end
+        {name: user[:name],count: cou}
+      end
+    }
+  if @user.size == 0
+    @user = [{name: "reimu",count: 0},{name: "marisa",count: 1000},{name:"youmu",count:1}]
+  elsif @user.size == 1
+    @user = [{name:"reimu",count:0},{name:"youmu",count:1},@user[0]]
+  elsif @user.size == 2
+    @user = [[name:"reimu",count:0],@user[0]]
+  end
+  @user = @user.sort {|a, b| b[:count] <=> a[:count] }
+  return @user
+end
+
   def content_params
     params.permit(:title, :sub, :size, :id, :switch)
   end
 
   def answer_params
     params.permit(:content_id, :answer, :user_sub)
+  end
+
+  def user_params
+    params.permit(:name,:user_sub)
   end
   
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/title/:id/:sub/:switch', to: 'titles#send_to_client'
   get '/title/:id', to: 'titles#send_to_client'
   get '/title_content0', to: 'titles#send_to_client0'
+  get '/title_rank', to: 'titles#rank'
   post '/answer', to: 'titles#answer'
  
   resource :good_users
