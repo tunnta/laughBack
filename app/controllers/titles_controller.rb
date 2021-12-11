@@ -50,7 +50,7 @@ class TitlesController < ApplicationController
       render json: [answer: "emp"]
 
     elsif content_params[:sub] != "emp" && content_params[:switch] == "1"          
-      @answer = Answer.where(content_id:content_params[:id])
+      @answer = Answer.where(content_id:content_params[:id]).order("RANDOM()")
       @answer = @answer.map { |answer|
                               if GoodUser.where(answer_id: answer.id).where(sub: content_params[:sub]).empty? 
                                 good_user = "gray"
@@ -63,16 +63,17 @@ class TitlesController < ApplicationController
       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,@answer]
     
     elsif content_params[:switch] == "1"  
-       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,Answer.where(content_id:content_params[:id]).select("answer")]
+       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,Answer.where(content_id:content_params[:id]).select("answer").order("RANDOM()")]
 
     elsif content_params[:switch] == "0" && Answer.where(content_id:content_params[:id]).empty?
       render json: [Content.where(id: content_params[:id]).where(switch:0).select("title","id","size") ,[answer: "emp"]]
 
     elsif content_params[:switch] == "0"
-      @answer = Answer.where(content_id:content_params[:id]).select("answer","id")
+      @answer = Answer.where(content_id:content_params[:id]).select("answer","id","user_sub")
       @answer = @answer.map{|answer,index|
         cou = GoodUser.where(answer_id: answer[:id]).count
-        {id: answer[:id],answer: answer[:answer],count: cou}
+        user = User.where(user_sub: answer[:user_sub])
+        {id: answer[:id],answer: answer[:answer],count: cou,name: user[0][:name]}
         }
         @answer = @answer.sort {|a, b| b[:count] <=> a[:count] }
         render json: [Content.where(id: content_params[:id]).where(switch:0).select("title","id","size") ,@answer]
