@@ -89,26 +89,30 @@ class TitlesController < ApplicationController
   end
 
   def ranksort
-    @answer = Answer.where('created_at >= ?',30.day.ago).select("user_sub","id")
-    @answer = @answer.map{|answer|
-      cou = GoodUser.where(answer_id: answer[:id]).count
-      {sub: answer[:user_sub],count: cou}
-    }
-    # [{name:"k",n:"k"},{name:"c",n:"x"}] ← mapの出力はこんな感じ
-    @user = User.all
-    @user = @user.map{|user|
-      if @answer.find_all{|val|val[:sub] == user[:user_sub]}.empty? != true
-        i = 0
-        cou = 0
-        k = @answer.find_all{|val|val[:sub] == user[:user_sub]}
-        size = k.size
-        while i < size do
-          cou = k[i][:count] + cou
-          i += 1
+    if Answer.where('created_at >= ?',30.day.ago).empty?
+      @user = []
+    else
+      @answer = Answer.where('created_at >= ?',30.day.ago).select("user_sub","id")
+      @answer = @answer.map{|answer|
+        cou = GoodUser.where(answer_id: answer[:id]).count
+        {sub: answer[:user_sub],count: cou}
+      }
+      # [{name:"k",n:"k"},{name:"c",n:"x"}] ← mapの出力はこんな感じ
+      @user = User.all
+      @user = @user.map{|user|
+        if @answer.find_all{|val|val[:sub] == user[:user_sub]}.empty? != true
+          i = 0
+          cou = 0
+          k = @answer.find_all{|val|val[:sub] == user[:user_sub]}
+          size = k.size
+          while i < size do
+            cou = k[i][:count] + cou
+            i += 1
+          end
+          {name: user[:name],count: cou}
         end
-        {name: user[:name],count: cou}
-      end
-    }
+      }
+    end
   if @user.size == 0
     @user = [{name: "reimu",count: 0},{name: "marisa",count: 1000},{name:"youmu",count:1}]
   elsif @user.size == 1
