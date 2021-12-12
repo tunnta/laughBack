@@ -1,2 +1,0 @@
-class Good < ApplicationRecord
-end

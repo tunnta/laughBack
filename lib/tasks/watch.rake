@@ -8,7 +8,5 @@ namespace :watch do
         contents.each do |content|
                 puts content.update(switch: 0)
         end
-
-    
-end
+   end
 end

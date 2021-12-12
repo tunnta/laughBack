@@ -37,16 +37,18 @@ class TitlesController < ApplicationController
     end
   end
 
-  def send_to_client
-    #パラメーターをフロントから送った場合とそうじゃない場合
-    if content_params.empty? && Content.where(switch:1).empty?
+  def send_to_client_all
+    if Content.where(switch:1).empty?
       render json: [title:"emp",size:200,id:"emp"]
-
-    elsif content_params.empty?
+    else
       @content = Content.where(switch:1).order("RANDOM()")
       render json: @content.select("title","id","size")
+    end
+  end
 
-    elsif content_params[:id] == "emp"
+  def send_to_client
+
+    if content_params[:id] == "emp"
       render json: [answer: "emp"]
 
     elsif content_params[:sub] != "emp" && content_params[:switch] == "1"          
