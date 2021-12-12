@@ -115,7 +115,7 @@ class TitlesController < ApplicationController
           {name: "reimu",count:0}  
         end
       }
-    end
+    
   if @user.size == 0
     @user = [{name: "reimu",count: 0},{name: "marisa",count: 1000},{name:"youmu",count:1}]
   elsif @user.size == 1
