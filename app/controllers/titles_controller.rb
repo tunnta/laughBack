@@ -16,6 +16,9 @@ class TitlesController < ApplicationController
     elsif User.where(user_sub: user_params[:user_sub]).where(name: user_params[:name]).empty?
       User.find_by(user_sub: user_params[:user_sub]).delete
       User.new(user_params).save
+    elsif User.where(sub: user_params[:sub]).where(name: user_params[:name])
+      User.find_by(sub: user_params[:sub]).delete
+      User.new(user_params).save
     end        
   end
 
@@ -89,16 +92,14 @@ class TitlesController < ApplicationController
   end
 
   def ranksort
-    if Answer.where('created_at >= ?',30.day.ago).empty?
-      @user = []
-    else
+    
       @answer = Answer.where('created_at >= ?',30.day.ago).select("user_sub","id")
       @answer = @answer.map{|answer|
         cou = GoodUser.where(answer_id: answer[:id]).count
         {sub: answer[:user_sub],count: cou}
       }
       # [{name:"k",n:"k"},{name:"c",n:"x"}] ← mapの出力はこんな感じ
-      @user = User.all
+      @user = User.where('created_at >= ?',30.day.ago)
       @user = @user.map{|user|
         if @answer.find_all{|val|val[:sub] == user[:user_sub]}.empty? != true
           i = 0
@@ -110,6 +111,8 @@ class TitlesController < ApplicationController
             i += 1
           end
           {name: user[:name],count: cou}
+        else
+          {name: "reimu",count:0}  
         end
       }
     end
@@ -121,6 +124,7 @@ class TitlesController < ApplicationController
     @user = [{name:"reimu",count:0},@user[0],@user[1]]
   end
   @user = @user.sort {|a, b| b[:count] <=> a[:count] }
+  @user = @user.take(3)
   return @user
 end
 
