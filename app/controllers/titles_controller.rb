@@ -64,7 +64,7 @@ class TitlesController < ApplicationController
                               end
                             {id: answer[:id],answer: answer[:answer],content_id: answer[:content_id],good: good_user}
                          }
-      if Answer.where(content_id:content_params[:id]).include?(content_params[:sub])
+      if Answer.where(content_id:content_params[:id]).include?(user_sub: content_params[:sub]) == true
         user_answer = "presence"
       else
         user_answer = "nothing"
