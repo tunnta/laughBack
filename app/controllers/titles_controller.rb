@@ -72,7 +72,7 @@ class TitlesController < ApplicationController
       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,@answer,user_answer]
     
     elsif content_params[:switch] == "1"  
-       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,Answer.where(content_id:content_params[:id]).select("answer").order("RANDOM()")]
+       render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,Answer.where(content_id:content_params[:id]).select("answer").order("RANDOM()"),"nothing"]
 
     elsif content_params[:switch] == "0" && Answer.where(content_id:content_params[:id]).empty?
       render json: [Content.where(id: content_params[:id]).where(switch:0).select("title","id","size") ,[answer: "emp"]]
