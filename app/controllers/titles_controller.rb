@@ -64,8 +64,12 @@ class TitlesController < ApplicationController
                               end
                             {id: answer[:id],answer: answer[:answer],content_id: answer[:content_id],good: good_user}
                          }
-
-      render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,@answer]
+      if Answer.where(content_id:content_params[:id]).include?(content_params[:sub])
+        user_answer = "presence"
+      else
+        user_answer = "nothing"
+      end
+      render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,@answer,user_answer]
     
     elsif content_params[:switch] == "1"  
        render json: [Content.where(id: content_params[:id]).where(switch:1).select("title","id","size") ,Answer.where(content_id:content_params[:id]).select("answer").order("RANDOM()")]
