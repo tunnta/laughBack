@@ -55,7 +55,7 @@ class TitlesController < ApplicationController
       render json: [answer: "emp"]
 
     elsif content_params[:sub] != "emp" && content_params[:switch] == "1"          
-      @answer = Answer.where(content_id:content_params[:id])#.order("RANDOM()")
+      @answer = Answer.where(content_id:content_params[:id]).order("RANDOM()")
       @answer = @answer.map { |answer|
                               if GoodUser.where(answer_id: answer.id).where(sub: content_params[:sub]).empty? 
                                 good_user = "gray"
