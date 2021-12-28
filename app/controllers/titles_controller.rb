@@ -36,7 +36,7 @@ class TitlesController < ApplicationController
        render json: [title:"emp",size:200,id:"emp"]
     else
       @content = Content.where(switch:0).limit(20)
-      render json: @content
+      render json: @content.select("title","id","size")
     end
   end
 
