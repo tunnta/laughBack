@@ -20,24 +20,24 @@ Heroku
 Vercel  
 # 使い方
 　  
-<img src="https://github.com/tunnta/laugh/スクリーンショット%20(76).png"  width="400px" align="center">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(76).png"  width="400px" align="center">  
 Topページ  
 右：ランキング(回答に対するいいねの数でソート)  
 中央：お題一覧  
-<img src="./スクリーンショット%20(48).png"  width="400px">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(48).png"  width="400px">  
 ログイン画面。  
 各種snsでのログインを想定。  
-<img src="./スクリーンショット%20(64).png"  width="400px">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(64).png"  width="400px">  
 ログイン後、top画面に遷移。  
 top画面ヘッダー右のユーザーをクリック後、ユーザー画面に遷移。  
 お題を投稿。入力をリアルタイムにプレビュー。    
-<img src="./スクリーンショット%20(71).png"  width="400px"><img src="./スクリーンショット%20(72).png"  width="400px">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(71).png"  width="400px"><img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(72).png"  width="400px">  
 お題をクリック後、回答フォームをクリック  
-<img src="./スクリーンショット%20(79).png"  width="400px"><img src="./スクリーンショット%20(80).png"  width="400px">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(79).png"  width="400px"><img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(80).png"  width="400px">  
 いいねマークを押すと色が変わる  
-<img src="./スクリーンショット%20(63).png"  width="400px">  
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(63).png"  width="400px">  
 Top画面下方、3日以上経過後のもの  
-<img src="./スクリーンショット%20(75).png"  width="400px">   
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(75).png"  width="400px">   
 いいねの数を集計、ソートし表示  
 # スマホでの表示
-<img src="./スクリーンショット%20(82).jpg"  height="400px"> <img src="./スクリーンショット%20(81).jpg"  height="400px"> 
+<img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(82).jpg"  height="400px"> <img src="https://github.com/tunnta/laugh/blob/main/スクリーンショット%20(81).jpg"  height="400px"> 
