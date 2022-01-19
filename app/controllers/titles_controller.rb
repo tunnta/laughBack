@@ -97,7 +97,7 @@ class TitlesController < ApplicationController
 
   def ranksort
     
-      @answer = Answer.where('created_at >= ?',30.day.ago).select("user_sub","id")
+      @answer = Answer.where('created_at >= ?',120.day.ago).select("user_sub","id")
       @answer = @answer.map{|answer|
         cou = GoodUser.where(answer_id: answer[:id]).count
         {sub: answer[:user_sub],count: cou}
