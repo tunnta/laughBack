@@ -103,7 +103,7 @@ class TitlesController < ApplicationController
         {sub: answer[:user_sub],count: cou}
       }
       # [{name:"k",n:"k"},{name:"c",n:"x"}] ← mapの出力はこんな感じ
-      @user = User.where('created_at >= ?',30.day.ago)
+      @user = User.where('created_at >= ?',120.day.ago)
       @user = @user.map{|user|
         if @answer.find_all{|val|val[:sub] == user[:user_sub]}.empty? != true
           i = 0
